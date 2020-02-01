@@ -1,4 +1,23 @@
 .container {
 	text-align: center;
-	padding-top: 14%;
+	padding: 4% 0;
+	margin-top: 10%;
+	color: #A5C5C3;
+	/*border: black solid 3px;*/
+	background-color: rgba(0, 120, 114, 0.5);
+	/*opacity: 0.5;*/
+}
+
+.my-4 {
+	color: #A5C5C3;
+}
+body {
+	background: url(https://images.unsplash.com/photo-1580391536506-a2864b8dae29?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+#result {
+	color = white;
 }
