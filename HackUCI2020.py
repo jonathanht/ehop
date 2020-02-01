@@ -16,15 +16,21 @@ class RestaurantLocator:
         self._API = "ljefBWbwtGtW4FYiVXEFj5qMXQMBaL08TR1mU6uCa421ZpT7ABj060EfqL7cJQTPRpek-P6-GtmiskfuwihuduS88ie0KDa7dIt2nFDLnQCjWni0aDkcdghjW0M1XnYx" # API Key
         self.headers = {'Authorization': 'Bearer %s' % self._API}
         self.param = {'term': 'food', 'location': 'Irvine'}
-        self.filters = ['fast food', 'burgers']
+        self.filters = ['fast food', 'burgers', 'desserts']
         self.radius = 3000
 
+#   Constructs the url using API,
 
-    def constructURL(self):
-        retList = []
+    def constructData(self):
+        #retList = []
         req = requests.get(self._BaseURL, params=self.param, headers=self.headers)
-        print('The status code is {}'.format(req.status_code))
+        #print('The status code is {}'.format(req.status_code))
         data = json.loads(req.text)
+
+        return data
+
+    def filterResults(self, data):
+        retList = []
         for item in data['businesses']:
             if item['distance'] < self.radius:
                 innerList = []
@@ -38,16 +44,14 @@ class RestaurantLocator:
                     pass
                 else:
                     retList.append(item['name'])
-
+        for item in retList:
+            print(item)
         return retList
 
 
 
-        #print json.dumps(data, indent=2, sort_keys=True) # prints all data about each business
-
-
 if __name__ == "__main__":
     tester = RestaurantLocator(x, y)
-    m = tester.constructURL()
-    for item in m:
-        print(item)
+    m = tester.constructData()
+    tester.filterResults(m)
+
