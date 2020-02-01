@@ -1,7 +1,7 @@
 # hackuci2020
 team repo for EHOP hackuci2020
 
-![ehoplogo](https://ibb.co/6bZMQdM)
+![ehoplogo](https://i.ibb.co/Qncg05g/ehop1.jpg)
 
 
 
