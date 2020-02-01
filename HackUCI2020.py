@@ -27,14 +27,18 @@ class RestaurantLocator:
         data = json.loads(req.text)
         for item in data['businesses']:
             if item['distance'] < self.radius:
+                innerList = []
+                filtered = False
                 for cdicts in item['categories']:
-                    print(cdicts['alias'])
-                    if cdicts['alias'] in self.filters:
-                        pass
-                    else:
-                        retList.append((item['name'], item['distance']))
-                #for alias in item['categories']:
-                    #print(alias)
+                    innerList.append(cdicts['alias'])
+                for filter in innerList:
+                    if filter in self.filters:
+                        filtered = True
+                if filtered:
+                    pass
+                else:
+                    retList.append(item['name'])
+
         return retList
 
 
@@ -44,4 +48,6 @@ class RestaurantLocator:
 
 if __name__ == "__main__":
     tester = RestaurantLocator(x, y)
-    tester.constructURL()
+    m = tester.constructURL()
+    for item in m:
+        print(item)
