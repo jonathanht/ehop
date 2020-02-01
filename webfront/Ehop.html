@@ -1,10 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
 	<title>Ehop</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="Ehop.css">
+  <script>
+    // Set global variable
+    var watchID;
 
+    function showPosition() {
+        if(navigator.geolocation) {
+            watchID = navigator.geolocation.watchPosition(successCallback);
+        } else {
+            alert("Sorry, your browser does not support HTML5 geolocation.");
+        }
+    }
+    function successCallback(position) {
+        toggleWatchBtn.innerHTML = "Stop Watching";
+        var sound1 = new Audio('ding-sound-effect_2.mp3');
+        var sound2 = new Audio('patrick.mp3');
+        
+        // Check position has been changed or not before doing anything
+        if(prevLat != position.coords.latitude || prevLong != position.coords.longitude) {
+            
+            // Set previous location
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
+            var prevLat = position.coords.latitude;
+            var prevLong = position.coords.longitude;
+            
+            // Get current position
+            var positionInfo = "Your current position is (" + "Latitude: " + position.coords.latitude + ", " + "Longitude: " + position.coords.longitude + ")";
+            document.getElementById("result").innerHTML = positionInfo;
+
+            //change values to fit the resturants coords
+            if (lat == 52.520007 && lon == 13.404954){
+              console.log('same');
+            }
+            
+        }
+        
+    }
+    function startWatch() {
+        var result = document.getElementById("result");
+        
+        var toggleWatchBtn = document.getElementById("toggleWatchBtn");
+        
+        toggleWatchBtn.onclick = function() {
+            if(watchID) {
+                toggleWatchBtn.innerHTML = "Start Watching";
+                navigator.geolocation.clearWatch(watchID);
+                watchID = false;
+            } else {
+                toggleWatchBtn.innerHTML = "Aquiring Geo Location...";
+                showPosition();
+            }
+        }
+    }
+    
+    // Initialise the whole system (above)
+    window.onload = startWatch;
+</script>
 </head>
 <body>
 
@@ -13,8 +70,13 @@
   	<p class="lead">Eating out can mess up your wanted style of diet, but it doesn't have to be a bother for you! Ehop nudges you if you are in a fast food restaurant, and simply suggests you with healthy, affordable alternatives around.</p>
   	<hr class="my-4">
   	<p>Click here to start being mindful of what you eat!</p>
-  	<a class="btn btn-primary btn-lg" href="#" role="button">Start</a>
+  	<button type="button" id="toggleWatchBtn">Start</button>
+    <div id="result">
+        <!--Position information will be inserted here-->
+    </div> 
 </div>
+
+
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
     	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   		crossorigin="anonymous"></script>
