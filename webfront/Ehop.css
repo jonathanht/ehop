@@ -61,6 +61,11 @@ button:hover{
 	background-color: 	#4f7cac;
 }
 
+input[type=text] {
+	
+	border-radius: 8px;
+	background-color: #a7f29c;
+}
 
 
 #result {
