@@ -25,13 +25,13 @@ body {
 
 
 h1 {
-	animation-duration: 8s; 
+	animation-duration: 6s; 
 	animation-name: fadein;
 }
 
 .lead{
 	color: #A5C5C3;
-	animation-duration: 11s;
+	animation-duration: 8s;
 	animation-name: fadein;
 }
 
@@ -61,6 +61,11 @@ button:hover{
 	background-color: 	#4f7cac;
 }
 
+input[type=text] {
+	
+	border-radius: 8px;
+	background-color: #a7f29c;
+}
 
 
 #result {
