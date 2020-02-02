@@ -4,8 +4,8 @@ from twilio.rest import Client
 
 # Your Account Sid and Auth Token from twilio.com/console
 # DANGER! This is insecure. See http://twil.io/secure
-account_sid = 'ACf9098d25860f18278fbdffd32257fbd8'
-auth_token = '33b07a3404a7aa8a000b9c30992ea52c'
+account_sid = ''
+auth_token = ''
 client = Client(account_sid, auth_token)
 
 message = client.messages \
