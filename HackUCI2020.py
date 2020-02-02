@@ -1,5 +1,6 @@
 import json
 import requests
+from Twilio_MMS_HUCI2020
 
 
 # coords of UTC
@@ -31,6 +32,7 @@ class RestaurantLocator:
         for item in filters:
             if item in self.filters.keys():
                 self.userFilters[item] = self.filters[item]
+        self.recommendations = []
 
         self.radius = 1000  # ~0.62 miles
 
@@ -63,11 +65,26 @@ class RestaurantLocator:
                     if title in self.userFilters.values():
                         filtered = True
                 if filtered:
-                    filteredList.append((item['name'], item['distance']))
+                    filteredList.append((item['name'], item['price'], item['rating']))
                 else:
-                    retList.append((item['name'], item['distance']))
+                    retList.append((item['name'], item['price'], item['rating']))
+
+            self.recommendations = retList
 
         return retList, filteredList
+
+# Provides alternatives to the user's bad food choice
+
+    def suggestions(self, sortBy):
+        retList = []
+        if sortBy.lower() == "price":
+            retList = sorted(self.recommendations, key=lambda x: (x[1], x[2]), reverse=True)
+        elif sortBy.lower() == "rating":
+            retList = sorted(self.recommendations, key=lambda x: (x[2], x[0]), reverse=True)
+        elif sortBy.lower() == "alphabetical":
+            retList = sorted(self.recommendations, key=lambda x: (x[0]))
+
+        return retList[:3]
 
 
 # Main function
@@ -81,4 +98,7 @@ if __name__ == "__main__":
     print("****")
     for item in q:
         print(item)
+    print("****")
+    print(tester.suggestions("price"))
+    print(tester.suggestions("alphabetical"))
 
