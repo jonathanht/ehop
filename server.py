@@ -7,18 +7,7 @@ class Feedback(RequestHandler):
         print(self.request.body)
         data = json.loads(self.request.body)
         print(data)
-        result_dict = {}
-        for key in ["first", "last", "email", "message"]:
-            if key not in [d for d in data.keys()]:
-                result_dict[key] = "not valid"
-            elif not data[key]:
-                result_dict[key] = "not valid"
-            elif key == "message" and len(data[key]) > 500:
-                result_dict[key] = "not valid"
-            else:
-                result_dict[key] = "valid"
-        print(result_dict)
-        self.write(result_dict)
+        self.write()
 def make_app():
     urls = [
         (r"/feedback", Feedback),
