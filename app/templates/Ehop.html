@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+	<title>Ehop</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/Ehop.css') }}">
+    <!-- <style type="text/css">
+    body { padding-top: 70px; }
+    .jumbotron {
+      color: #2c3e50;
+      background: #ecf0f1;
+
+    }
+    .navbar-inverse {
+      background: #2c3e50;
+      color: white;
+    }
+    .navbar-inverse .navbar-brand, .navbar-inverse a{
+      color:white;
+    }
+    .navbar-inverse .navbar-nav>li>a {
+      color: white;
+    } 
+
+  </style> -->
+  <script>
+    // Set global variable
+    var watchID;
+    var testx = 20;
+    function showPosition() {
+        if(navigator.geolocation) {
+            watchID = navigator.geolocation.watchPosition(successCallback);
+        } else {
+            alert("Sorry, your browser does not support HTML5 geolocation.");
+        }
+    }
+    function successCallback(position) {
+        toggleWatchBtn.innerHTML = "Stop Watching";
+        var sound1 = new Audio('ding-sound-effect_2.mp3');
+        var sound2 = new Audio('patrick.mp3');
+        
+        // Check position has been changed or not before doing anything
+        if(prevLat != position.coords.latitude || prevLong != position.coords.longitude) {
+            
+            // Set previous location
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
+            var prevLat = position.coords.latitude;
+            var prevLong = position.coords.longitude;
+            
+            // Get current position
+            var positionInfo = "Your current position is (" + "Latitude: " + position.coords.latitude + ", " + "Longitude: " + position.coords.longitude + ")";
+            document.getElementById("result").innerHTML = positionInfo;
+
+            //change values to fit the resturants coords
+            if (lat == 52.520007 && lon == 13.404954){
+              console.log('same');
+            }
+            
+        }
+        
+    }
+    function startWatch() {
+        var result = document.getElementById("result");
+        
+        var toggleWatchBtn = document.getElementById("toggleWatchBtn");
+        
+        toggleWatchBtn.onclick = function() {
+            if(watchID) {
+                toggleWatchBtn.innerHTML = "Start Watching";
+                navigator.geolocation.clearWatch(watchID);
+                watchID = false;
+            } else {
+                toggleWatchBtn.innerHTML = "Acquiring Geo Location...";
+                showPosition();
+            }
+        }
+    }
+    
+    function getphoneNum() {
+        var userNum = document.getElementById("phonenum").value;
+        alert(userNum);
+    }
+
+    // Initialise the whole system (above)
+    window.onload = startWatch;
+</script>
+</head>
+<body>
+<!--     <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-nav-demo" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+                <a href="/" class="navbar-brand"><span class="glyphicon glyphicon-picture"></span> IMGS</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-nav-demo">
+                <ul class="nav navbar-nav">
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/ourteam">Our Team</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+ -->
+    <ul>
+        <li><a href='/'>Home |</a></li>
+        <li><a href='/about'>About |</a></li>
+        <li><a href="/ourteam">Our Team</a></li>
+        
+    </ul>
+
+<div class = "container">
+  	<h1 class="display-4">Welcome to eHop!</h1>
+  	<p class="lead">It's often difficult to stick to a diet with so many fast food restaurants around you. eHop helps you make better decisions by reminding you that there's always a healthier alternative.</p>
+  	<hr class="my-4">
+  	<p>Click here and be better <b> today. </b>
+    </p>
+<!--   	<button type="button" id="toggleWatchBtn">Start</button> -->
+    <div id="result">
+        <!--Position information will be inserted here-->
+    </div> 
+
+    <form action="" method="post" novalidate>
+        <p>
+            {{ form.latitude.label }}<br>
+            {{ form.latitude(size=32) }}
+        </p>
+        <p>
+            {{ form.longtitude.label }}<br>
+            {{ form.longtitude(size=32) }}
+        </p>
+        <p>{{ form.phonenumber.label }}<br>
+            {{ form.phonenumber(size=32) }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+
+    <!-- <div id="phonenumber">
+
+    </div> -->
+
+    <!-- <button type="button" onclick="getphoneNum()">Submit</button> -->
+    
+</div>
+
+
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  		crossorigin="anonymous"></script>
+	<script type="text/javascript" src = "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>
